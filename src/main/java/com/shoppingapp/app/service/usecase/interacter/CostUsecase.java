@@ -1,6 +1,6 @@
 package com.shoppingapp.app.service.usecase.interacter;
 
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
@@ -55,7 +55,6 @@ public class CostUsecase{
     int clothingCosts=0;
     int commutingCost=0;
     int miscellaneousExpenses=0;
-    int sum=0;
 
     //見つかったら値を追加
     if(optionalMemo.isPresent()){
@@ -65,7 +64,6 @@ public class CostUsecase{
       clothingCosts=shoppingMemo.getClothingCosts();
       commutingCost=shoppingMemo.getCommutingCost();
       miscellaneousExpenses=shoppingMemo.getMiscellaneousExpenses();
-      sum=shoppingMemo.getSum();
     }
 
     //ここで今月の分の蓄積料金に今きたやつを足すよ。
@@ -85,16 +83,68 @@ public class CostUsecase{
     int nowSum=sendingShoppingMemoEntiry.getSum();
 
     if(yourCostLim<nowSum){
-      String result=mailServer.sendCostLim();
+      String resMailServer=mailServer.sendCostLim();
     }
 
     //データを送るよ
-    ShoppingMemoEntiry result=shoppingMemoRepository.save(sendingShoppingMemoEntiry);
+    ShoppingMemoEntiry resShoppingMemoRepository=shoppingMemoRepository.save(sendingShoppingMemoEntiry);
 
     return "OK";
   }
 
-  public String recieveSCostData(ShoppingMemoDTO shoppingMemoDTO){
 
+
+
+  public List<ShoppingMemoDTO> recieveCostDataofMonths(){
+
+    //sessionからuseridの取得
+    final UserSession userSession=sessionUsecase.crateUserSession();
+    final String userId=userSession.getUserId();
+
+    //今の月を取得
+    final int month=dateFactory.getMonth();
+
+    List<Optional<ShoppingMemoEntiry>> resShoppingMemoofMonths = shoppingMemoRepository.findByUserIdAndYear(userId,month);
+    List<ShoppingMemoDTO> returnDtoArray = new ArrayList<>();
+
+    //ここでdtoにパース
+    for (Optional<ShoppingMemoEntiry> optional : resShoppingMemoofMonths) {
+      ShoppingMemoEntiry resShoppingMemoofMonth=optional.get();
+
+      int groceries=resShoppingMemoofMonth.getGroceries();
+      int clothingCosts=resShoppingMemoofMonth.getClothingCosts();
+      int commutingCost=resShoppingMemoofMonth.getCommutingCost();
+      int miscellaneousExpenses=resShoppingMemoofMonth.getMiscellaneousExpenses();
+
+      ShoppingMemoDTO returnDto=new ShoppingMemoDTO(groceries, commutingCost, clothingCosts, miscellaneousExpenses);
+      returnDtoArray.add(returnDto);
+    }
+
+    return returnDtoArray;
   }
-} 
+
+
+  
+  public ShoppingMemoDTO receiveCostDataofMonth(){
+    //sessionからuseridの取得
+    final UserSession userSession=sessionUsecase.crateUserSession();
+    final String userId=userSession.getUserId();
+
+    //今の月と年を取得
+    final int year=dateFactory.getYear();
+    final int month=dateFactory.getMonth();
+
+    Optional <ShoppingMemoEntiry> optionalMemo=shoppingMemoRepository.findByUserIdAndMonthAndYear(userId, month, year);
+
+      ShoppingMemoEntiry resShoppingMemoofMonth=optionalMemo.get();
+
+      int groceries=resShoppingMemoofMonth.getGroceries();
+      int clothingCosts=resShoppingMemoofMonth.getClothingCosts();
+      int commutingCost=resShoppingMemoofMonth.getCommutingCost();
+      int miscellaneousExpenses=resShoppingMemoofMonth.getMiscellaneousExpenses();
+
+      ShoppingMemoDTO returnDto=new ShoppingMemoDTO(groceries, commutingCost, clothingCosts, miscellaneousExpenses);
+
+      return returnDto;
+  }
+}
