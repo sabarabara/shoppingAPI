@@ -1,0 +1,23 @@
+package com.shoppingapp.app.service.framework.AIassistantServer;
+
+import com.shoppingapp.app.service.core.domain.model.vo.AIAssistant.AIAssistantMessage;
+import com.shoppingapp.app.service.core.domain.service.interacter.IAIassistant;
+import com.shoppingapp.app.service.core.dto.AIassistantDTO;
+import com.google.genai.Client;
+import com.google.genai.types.GenerateContentResponse;
+
+public class AIassistant implements IAIassistant{
+
+  public AIassistantDTO assistYourShopping(AIAssistantMessage message){
+
+    Client client = new Client();
+    String sendingMessage=message.getMessage();
+    GenerateContentResponse response =
+        client.models.generateContent("gemini-2.0-flash",sendingMessage,null);
+        client.close();
+
+        String parsedResponseText=response.text();
+        AIassistantDTO recieveMessage=new AIassistantDTO(parsedResponseText);
+      return recieveMessage;
+  }
+}
