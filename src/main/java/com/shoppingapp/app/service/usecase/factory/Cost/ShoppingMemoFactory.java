@@ -30,6 +30,6 @@ public class ShoppingMemoFactory implements IShoppingMemoFactory{
     final int sum =sumcal.getSum();
 
 
-    //ShoppingMemoEntiry shoppingMemoEntiry=new
+    ShoppingMemoEntiry shoppingMemoEntiry=new ShoppingMemoEntiry()
   }
 }
