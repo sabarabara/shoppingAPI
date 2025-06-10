@@ -8,10 +8,10 @@ import com.shoppingapp.app.service.core.dto.AIassistantDTO;
 
 
 @RestController
-@RequestMapping("AI")
+@RequestMapping("/AI")
 public class AIAssistantController{
 
-  @PostMapping("post")
+  @PostMapping("/post")
   public String sendMessage(AIassistantDTO aiassistantdto){
     return "OK";
   }

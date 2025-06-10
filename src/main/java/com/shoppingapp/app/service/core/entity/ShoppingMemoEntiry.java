@@ -16,7 +16,7 @@ public class ShoppingMemoEntiry {
     private Integer shoppingMemoId;
 
     @Column()
-    private int userId;
+    private String userId;
 
     @Column(nullable = false)
     private int month;
@@ -41,7 +41,7 @@ public class ShoppingMemoEntiry {
 
 
     public ShoppingMemoEntiry(
-        int userId,
+        String userId,
         int month,
         int year,
         int groceries,

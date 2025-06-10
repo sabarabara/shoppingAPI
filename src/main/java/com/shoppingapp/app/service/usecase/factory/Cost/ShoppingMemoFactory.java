@@ -1,5 +1,7 @@
 package com.shoppingapp.app.service.usecase.factory.Cost;
 
+import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
+import com.shoppingapp.app.auth.usecase.SessionUsecase;
 import com.shoppingapp.app.service.core.domain.model.factory.Cost.IShoppingMemoFactory;
 import com.shoppingapp.app.service.core.domain.model.vo.Cost.ShoppingMemo;
 import com.shoppingapp.app.service.core.domain.model.vo.Cost.Sumcal;
@@ -7,6 +9,12 @@ import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
 import com.shoppingapp.app.service.core.entity.ShoppingMemoEntiry;
 
 public class ShoppingMemoFactory implements IShoppingMemoFactory{
+
+  private final SessionUsecase sessionUsecase;
+
+  public ShoppingMemoFactory(SessionUsecase sessionUsecase){
+    this.sessionUsecase=sessionUsecase;
+  }
 
   // dto->voにおけるバリデーション
   public ShoppingMemoEntiry createShoppingMemoEntiry(ShoppingMemoDTO shoppingmemodto){
@@ -29,7 +37,16 @@ public class ShoppingMemoFactory implements IShoppingMemoFactory{
     Sumcal sumcal=new Sumcal(shoppingMemo);
     final int sum =sumcal.getSum();
 
+    final UserSession userSession=sessionUsecase.crateUserSession();
+    final String userId=userSession.getUserId();
 
-    ShoppingMemoEntiry shoppingMemoEntiry=new ShoppingMemoEntiry()
+    //validation後の
+    final int validatedGroceries=shoppingMemo.getGroceries().getAmount();
+    final int validatedClothingCosts=shoppingMemo.getClothingcosts().getAmount();
+    final int validatedCommutingCost=shoppingMemo.getCommutingcost().getAmount();
+    final int validatedMiscellaneousExpenses=shoppingMemo.getMiscellaneousexpenses().getAmount();
+
+    ShoppingMemoEntiry shoppingMemoEntiry=new ShoppingMemoEntiry(userId,month,year,validatedGroceries,validatedCommutingCost,validatedClothingCosts,validatedMiscellaneousExpenses,sum);
+    return shoppingMemoEntiry;
   }
 }
