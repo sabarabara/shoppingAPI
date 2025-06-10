@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="UserCostLim")
+@Table(name="user_cost_lim")
 public class UserCostLimEntity{
 
   @Id

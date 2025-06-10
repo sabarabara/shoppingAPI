@@ -14,12 +14,11 @@ public class ShoppingMemo{
   private final Commutingcost commutingcost;
   private final Miscellaneousexpenses miscellaneousexpenses;
 
-  public ShoppingMemo(Groceries groceries,Clothingcosts clothingcosts,Commutingcost commutingcost,Miscellaneousexpenses miscellaneousexpenses){
-
-    this.groceries=groceries;
-    this.clothingcosts=clothingcosts;
-    this.commutingcost=commutingcost;
-    this.miscellaneousexpenses=miscellaneousexpenses;
+  public ShoppingMemo(int  groceries_i,int  clothingcosts_i,int  commutingcost_i,int  miscellaneousexpenses_i){
+    groceries=new Groceries(new Money(groceries_i));
+    clothingcosts=new Clothingcosts(new Money(clothingcosts_i));
+    commutingcost=new Commutingcost(new Money(commutingcost_i));
+    miscellaneousexpenses=new Miscellaneousexpenses(new Money(miscellaneousexpenses_i));
   }
 
   public Money getGroceries(){

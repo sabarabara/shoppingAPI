@@ -38,4 +38,8 @@ public class ShoppingMemoEntiry{
   @Column(nullable = false)
   private int sum;
 
+  public ShoppingMemoEntiry(){
+    
+  }
+
 }

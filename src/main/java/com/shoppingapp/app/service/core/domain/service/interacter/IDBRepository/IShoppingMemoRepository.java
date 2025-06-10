@@ -6,5 +6,5 @@ import com.shoppingapp.app.service.core.entity.ShoppingMemoEntiry;
 
 public interface IShoppingMemoRepository extends JpaRepository<ShoppingMemoEntiry,Integer>{
 
-  ShoppingMemoEntiry 
+  
 }
