@@ -20,16 +20,16 @@ public class CostUsecase{
 
   private final IShoppingMemoRepository shoppingMemoRepository;
   private final IUserCostLimRepository userCostLimRepository;
-  private final IMailServer mailServer;
+  //private final IMailServer mailServer;
   private final SessionUsecase sessionUsecase;
   private final DateFactory dateFactory;
   private final IShoppingMemoFactory shoppingMemoFactory;
 
-  public CostUsecase(IShoppingMemoRepository shoppingMemoRepository,IUserCostLimRepository userCostLimRepository,IMailServer mailServer, SessionUsecase sessionUsecase,DateFactory dateFactory, IShoppingMemoFactory shoppingMemoFactory){
+  public CostUsecase(IShoppingMemoRepository shoppingMemoRepository,IUserCostLimRepository userCostLimRepository,/*IMailServer mailServer,*/ SessionUsecase sessionUsecase,DateFactory dateFactory, IShoppingMemoFactory shoppingMemoFactory){
 
     this.shoppingMemoRepository=shoppingMemoRepository;
     this.userCostLimRepository=userCostLimRepository;
-    this.mailServer=mailServer;
+    //this.mailServer=mailServer;
     this.sessionUsecase=sessionUsecase;
     this.dateFactory=dateFactory;
     this.shoppingMemoFactory=shoppingMemoFactory;
@@ -82,9 +82,9 @@ public class CostUsecase{
     int yourCostLim=optinalUserCostLim.get().getCostLim();
     int nowSum=sendingShoppingMemoEntiry.getSum();
 
-    if(yourCostLim<nowSum){
+    /*if(yourCostLim<nowSum){
       String resMailServer=mailServer.sendCostLim();
-    }
+    }*/
 
     //データを送るよ
     ShoppingMemoEntiry resShoppingMemoRepository=shoppingMemoRepository.save(sendingShoppingMemoEntiry);

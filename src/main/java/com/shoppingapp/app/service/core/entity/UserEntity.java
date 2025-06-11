@@ -8,17 +8,48 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
+public class UserEntity {
 
-public class UserEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    private String userId;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer userId;
+    @Column(nullable = false)
+    private String username;
 
-  @Column(nullable = false)
-  private String userName;
+    @Column(nullable = false)
+    private String password;
 
-  @Column(nullable = false)
-  private String passWord;
+    @Column(nullable = false)
+    private String mailaddress;
+
+
+    public UserEntity() {
+    }
+    
+    public UserEntity(String userId, String username, String password, String mailaddress) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.mailaddress = mailaddress;
+    }
+
+    // ===== Getter =====
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getMailaddress() {
+        return mailaddress;
+    }
 }

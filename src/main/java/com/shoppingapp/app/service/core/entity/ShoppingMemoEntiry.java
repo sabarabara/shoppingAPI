@@ -2,8 +2,6 @@ package com.shoppingapp.app.service.core.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,9 +9,10 @@ import jakarta.persistence.Table;
 @Table(name = "shopping_memo")
 public class ShoppingMemoEntiry {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer shoppingMemoId;
+    @Column()
+    private String shoppingMemoId;
 
     @Column()
     private String userId;
@@ -40,7 +39,11 @@ public class ShoppingMemoEntiry {
     private int sum;
 
 
+    public ShoppingMemoEntiry() {
+    }
+
     public ShoppingMemoEntiry(
+        String shoppingMemoId,
         String userId,
         int month,
         int year,
@@ -58,6 +61,42 @@ public class ShoppingMemoEntiry {
         this.clothingCosts = clothingCosts;
         this.miscellaneousExpenses = miscellaneousExpenses;
         this.sum = sum;
+    }
+
+    public String getShoppingMemoId() {
+        return shoppingMemoId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getGroceries() {
+        return groceries;
+    }
+
+    public int getCommutingCost() {
+        return commutingCost;
+    }
+
+    public int getClothingCosts() {
+        return clothingCosts;
+    }
+
+    public int getMiscellaneousExpenses() {
+        return miscellaneousExpenses;
+    }
+
+    public int getSum() {
+        return sum;
     }
 
     

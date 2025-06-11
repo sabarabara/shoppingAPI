@@ -3,9 +3,14 @@ package com.shoppingapp.app.service.framework.AIassistantServer;
 import com.shoppingapp.app.service.core.domain.model.vo.AIAssistant.AIAssistantMessage;
 import com.shoppingapp.app.service.core.domain.service.interacter.IAIassistant;
 import com.shoppingapp.app.service.core.dto.AIassistantDTO;
+
+import org.springframework.stereotype.Service;
+
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 
+
+@Service
 public class AIassistant implements IAIassistant{
 
   public AIassistantDTO assistYourShopping(AIAssistantMessage message){

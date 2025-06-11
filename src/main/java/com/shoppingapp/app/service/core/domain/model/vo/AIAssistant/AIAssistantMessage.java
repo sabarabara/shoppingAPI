@@ -4,7 +4,7 @@ public class AIAssistantMessage{
 
   private final String message;
 
-  AIAssistantMessage(String message){
+  public AIAssistantMessage(String message){
     this.message=message;
   }
 

@@ -15,8 +15,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserController{
 
   @PostMapping("post")
-  public UserDTO createUser(HttpSession session,@RequestBody UserDTO userdto){
-    session.setAttribute("userId",2);
+  public UserDTO createUser(@RequestBody UserDTO userdto){
     return userdto;
   }
 

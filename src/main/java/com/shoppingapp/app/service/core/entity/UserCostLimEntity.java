@@ -12,12 +12,34 @@ import jakarta.persistence.Table;
 public class UserCostLimEntity{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer userCostLimId;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column()
+  private String userCostLimId;
 
   @Column(nullable = false)
-  private Integer userId;
+  private String userId;
 
   @Column(nullable = false)
   private int costLim;
+
+  public UserCostLimEntity() {}
+
+    public UserCostLimEntity(String userCostLimId, String userId, int costLim) {
+        this.userCostLimId = userCostLimId;
+        this.userId = userId;
+        this.costLim = costLim;
+    }
+
+    // Getter
+    public String getUserCostLimId() {
+        return userCostLimId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public int getCostLim() {
+        return costLim;
+    }
 }

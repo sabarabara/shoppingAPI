@@ -1,34 +1,33 @@
 package com.shoppingapp.app.auth.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.ObjectProvider;
 
 import com.shoppingapp.app.auth.core.domain.model.factory.ISessionFactory;
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
 import com.shoppingapp.app.auth.core.domain.service.interacter.ISessionStore;
 
-public class SessionUsecase{
 
-  private final ISessionStore sessionStore;
+@Service
+public class SessionUsecase {
+
+  private final ObjectProvider<ISessionStore> sessionStoreProvider;
   private final ISessionFactory userSessionFactory;
 
-  private final String userId;
-  private final String username;
-  private final String password;
-
-
   @Autowired
-  public SessionUsecase(ISessionStore sessionStore, ISessionFactory userSessionFactory){
-    this.sessionStore=sessionStore;
-    this.userSessionFactory=userSessionFactory;
-
-    userId=this.sessionStore.getUserId();
-    username=this.sessionStore.getUsername();
-    password=this.sessionStore.getPassword();
+  public SessionUsecase(ObjectProvider<ISessionStore> sessionStoreProvider,
+                        ISessionFactory userSessionFactory) {
+    this.sessionStoreProvider = sessionStoreProvider;
+    this.userSessionFactory = userSessionFactory;
   }
 
-  public UserSession crateUserSession(){
+  public UserSession crateUserSession() {
+    ISessionStore sessionStore = sessionStoreProvider.getObject();
+    String userId = sessionStore.getUserId();
+    String username = sessionStore.getUsername();
+    String password = sessionStore.getPassword();
 
-    UserSession userSession=userSessionFactory.createUserSession(userId, username, password);
-    return userSession;
+    return userSessionFactory.createUserSession(userId, username, password);
   }
 }

@@ -2,6 +2,9 @@ package com.shoppingapp.app.service.usecase.factory.Cost;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class DateFactory{
 
   private final int year;
