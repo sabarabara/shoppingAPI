@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
 import com.shoppingapp.app.auth.usecase.SessionUsecase;
 import com.shoppingapp.app.service.core.domain.model.factory.Cost.IShoppingMemoFactory;
-import com.shoppingapp.app.service.core.domain.service.interacter.IMailServer;
 import com.shoppingapp.app.service.core.domain.service.interacter.IDBRepository.IShoppingMemoRepository;
 import com.shoppingapp.app.service.core.domain.service.interacter.IDBRepository.IUserCostLimRepository;
 import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
@@ -78,9 +77,9 @@ public class CostUsecase{
 
 
     //もし合計値が設定値を超えていたらSMS or メールを送る
-    Optional<UserCostLimEntity> optinalUserCostLim=userCostLimRepository.findByuserId(userId);
-    int yourCostLim=optinalUserCostLim.get().getCostLim();
-    int nowSum=sendingShoppingMemoEntiry.getSum();
+    //Optional<UserCostLimEntity> optinalUserCostLim=userCostLimRepository.findByuserId(userId);
+    //int yourCostLim=optinalUserCostLim.get().getCostLim();
+    //int nowSum=sendingShoppingMemoEntiry.getSum();
 
     /*if(yourCostLim<nowSum){
       String resMailServer=mailServer.sendCostLim();
