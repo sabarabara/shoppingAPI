@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
+import com.shoppingapp.app.auth.usecase.AuthUsecase;
 import com.shoppingapp.app.auth.usecase.SessionUsecase;
+import com.shoppingapp.app.service.core.dto.UserDTO;
+import com.shoppingapp.app.service.core.entity.UserEntity;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -15,20 +18,24 @@ import jakarta.servlet.http.HttpSession;
 public class AuthController{
 
    private final SessionUsecase sessionUsecase;
+   private final AuthUsecase authUsecase;
 
-  @Autowired
-    public AuthController(SessionUsecase sessionUsecase) {
+
+    public AuthController(SessionUsecase sessionUsecase,AuthUsecase authUsecase) {
         this.sessionUsecase = sessionUsecase;
+        this.authUsecase=authUsecase;
     }
 
     @PostMapping("/login")
-  public UserSession login(HttpSession session,String userId,String username,String password){
+  public UserSession login(HttpSession session,UserDTO userDTO){
 
-    session.setAttribute("userId", userId);
-    session.setAttribute("username", username);
-    session.setAttribute("password", password);
-
+    UserEntity userEntity=authUsecase.comparePass(userDTO);
+    
+    session.setAttribute("userId",userEntity.getUserId());
+    session.setAttribute("username", userEntity.getUsername());
+    session.setAttribute("email", userEntity.getMailaddress());
     UserSession userSession=sessionUsecase.crateUserSession();
+    
     return userSession;
   }
 
