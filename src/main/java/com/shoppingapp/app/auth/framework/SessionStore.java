@@ -14,22 +14,15 @@ import jakarta.servlet.http.HttpSession;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SessionStore implements ISessionStore{
 
-  private final HttpSession session;
-
-  @Autowired
-  public SessionStore(HttpSession session){
-    this.session=session;
-  }
-
-  public String getUserId(){
+  public String getUserId(HttpSession session){
     return (String) session.getAttribute("userId");
   }
 
-  public String getUsername(){
+  public String getUsername(HttpSession session){
     return (String) session.getAttribute("username");
   }
 
-  public String getPassword(){
+  public String getPassword(HttpSession session){
     return (String) session.getAttribute("password");
   }
 }

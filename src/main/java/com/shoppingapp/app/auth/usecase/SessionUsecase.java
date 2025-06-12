@@ -8,6 +8,8 @@ import com.shoppingapp.app.auth.core.domain.model.factory.ISessionFactory;
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
 import com.shoppingapp.app.auth.core.domain.service.interacter.ISessionStore;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Service
 public class SessionUsecase {
@@ -22,11 +24,11 @@ public class SessionUsecase {
     this.userSessionFactory = userSessionFactory;
   }
 
-  public UserSession crateUserSession() {
+  public UserSession crateUserSession(HttpSession session) {
     ISessionStore sessionStore = sessionStoreProvider.getObject();
-    String userId = sessionStore.getUserId();
-    String username = sessionStore.getUsername();
-    String password = sessionStore.getPassword();
+    String userId = sessionStore.getUserId(session);
+    String username = sessionStore.getUsername(session);
+    String password = sessionStore.getPassword(session);
 
     return userSessionFactory.createUserSession(userId, username, password);
   }

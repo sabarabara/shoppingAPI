@@ -1,7 +1,7 @@
 package com.shoppingapp.app.auth.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,14 +27,14 @@ public class AuthController{
     }
 
     @PostMapping("/login")
-  public UserSession login(HttpSession session,UserDTO userDTO){
+  public UserSession login(HttpSession session,@RequestBody UserDTO userDTO){
 
     UserEntity userEntity=authUsecase.comparePass(userDTO);
     
     session.setAttribute("userId",userEntity.getUserId());
     session.setAttribute("username", userEntity.getUsername());
     session.setAttribute("email", userEntity.getMailaddress());
-    UserSession userSession=sessionUsecase.crateUserSession();
+    UserSession userSession=sessionUsecase.crateUserSession(session);
     
     return userSession;
   }

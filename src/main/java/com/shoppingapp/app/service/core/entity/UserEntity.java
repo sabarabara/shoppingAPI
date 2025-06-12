@@ -2,8 +2,6 @@ package com.shoppingapp.app.service.core.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,8 +10,7 @@ import jakarta.persistence.Table;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column()
     private String userId;
 
     @Column(nullable = false)
@@ -23,7 +20,7 @@ public class UserEntity {
     private String password;
 
     @Column(nullable = false)
-    private String mailaddress;
+    private String email;
 
 
     public UserEntity() {
@@ -33,10 +30,9 @@ public class UserEntity {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.mailaddress = mailaddress;
+        this.email = mailaddress;
     }
 
-    // ===== Getter =====
     public String getUserId() {
         return userId;
     }
@@ -50,6 +46,6 @@ public class UserEntity {
     }
 
     public String getMailaddress() {
-        return mailaddress;
+        return email;
     }
 }

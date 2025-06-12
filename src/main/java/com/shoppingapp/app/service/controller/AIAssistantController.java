@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingapp.app.service.core.dto.AIassistantDTO;
 import com.shoppingapp.app.service.usecase.interacter.AIAssistantUsecase;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @RestController
 @RequestMapping("/AI")
@@ -20,7 +22,7 @@ public class AIAssistantController{
 
 
   @GetMapping("/get")
-  public AIassistantDTO sendMessage(){
-    return aiAssistantUsecase.returnAIassistantMessage();
+  public AIassistantDTO sendMessage(HttpSession session){
+    return aiAssistantUsecase.returnAIassistantMessage(session);
   }
 }

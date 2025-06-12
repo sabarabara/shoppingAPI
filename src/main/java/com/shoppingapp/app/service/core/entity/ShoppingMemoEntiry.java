@@ -53,6 +53,7 @@ public class ShoppingMemoEntiry {
         int miscellaneousExpenses,
         int sum
     ) {
+        this.shoppingMemoId=shoppingMemoId;
         this.userId = userId;
         this.month = month;
         this.year = year;

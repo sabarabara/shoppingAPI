@@ -1,10 +1,13 @@
 package com.shoppingapp.app.auth.usecase;
 
+import org.springframework.stereotype.Service;
+
 import com.shoppingapp.app.auth.framework.AuthFramework;
 import com.shoppingapp.app.service.core.dto.UserDTO;
 import com.shoppingapp.app.service.core.entity.UserEntity;
 import com.shoppingapp.app.service.usecase.factory.User.UserFactory;
 
+@Service
 public class AuthUsecase{
 
   private final AuthFramework authFramework;

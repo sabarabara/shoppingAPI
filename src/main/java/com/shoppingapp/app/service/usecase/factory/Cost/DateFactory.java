@@ -11,8 +11,10 @@ public class DateFactory{
   private final int month;
 
   public DateFactory(){
-    year=LocalDate.now().getDayOfYear();
-    month=LocalDate.now().getDayOfMonth();
+
+    LocalDate now=LocalDate.now();
+    this.year =  now.getYear();
+    this.month = now.getMonthValue();
   }
 
   public int getYear(){

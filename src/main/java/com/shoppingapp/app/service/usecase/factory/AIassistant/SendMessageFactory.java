@@ -12,6 +12,8 @@ import com.shoppingapp.app.service.core.domain.service.interacter.IDBRepository.
 import com.shoppingapp.app.service.core.entity.ShoppingMemoEntiry;
 import com.shoppingapp.app.service.usecase.factory.Cost.DateFactory;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class SendMessageFactory implements ISendMessageFactory{
 
@@ -38,10 +40,10 @@ public class SendMessageFactory implements ISendMessageFactory{
             return prompt;
   }
 
-  private String ParsePrompt(){
+  private String ParsePrompt(HttpSession session){
 
     //sessionからuseridの取得
-    final UserSession userSession=sessionUsecase.crateUserSession();
+    final UserSession userSession=sessionUsecase.crateUserSession(session);
     final String userId=userSession.getUserId();
 
     //今の月と年を取得
@@ -62,17 +64,38 @@ public class SendMessageFactory implements ISendMessageFactory{
     Optional <ShoppingMemoEntiry> optionalNowMemo=shoppingMemoRepository.findByUserIdAndMonthAndYear(userId, month, year);
     Optional <ShoppingMemoEntiry> optionalLastMemo=shoppingMemoRepository.findByUserIdAndMonthAndYear(userId, lastmonth, lastyear);
 
-    int groceries=optionalNowMemo.get().getGroceries();
-    int clothingCosts=optionalNowMemo.get().getClothingCosts();
-    int commutingCost=optionalNowMemo.get().getCommutingCost();
-    int miscellaneousExpenses=optionalNowMemo.get().getMiscellaneousExpenses();
-    int sum=optionalNowMemo.get().getSum();
+    int initializevalue=0;
 
-    int pregroceries=optionalNowMemo.get().getGroceries();
-    int preclothingCosts=optionalNowMemo.get().getClothingCosts();
-    int precommutingCost=optionalNowMemo.get().getCommutingCost();
-    int premiscellaneousExpenses=optionalNowMemo.get().getMiscellaneousExpenses();
-    int presum=optionalLastMemo.get().getSum();
+    int groceries=initializevalue;
+    int clothingCosts=initializevalue;
+    int commutingCost=initializevalue;
+    int miscellaneousExpenses=initializevalue;
+    int sum=initializevalue;
+
+    int pregroceries=initializevalue;
+    int preclothingCosts=initializevalue;
+    int precommutingCost=initializevalue;
+    int premiscellaneousExpenses=initializevalue;
+    int presum=initializevalue;
+
+
+    if(optionalNowMemo.isPresent()){
+     groceries=optionalNowMemo.get().getGroceries();
+     clothingCosts=optionalNowMemo.get().getClothingCosts();
+     commutingCost=optionalNowMemo.get().getCommutingCost();
+     miscellaneousExpenses=optionalNowMemo.get().getMiscellaneousExpenses();
+     sum=optionalNowMemo.get().getSum();
+    }
+
+    if(optionalLastMemo.isPresent()){
+     pregroceries=optionalNowMemo.get().getGroceries();
+     preclothingCosts=optionalNowMemo.get().getClothingCosts();
+     precommutingCost=optionalNowMemo.get().getCommutingCost();
+     premiscellaneousExpenses=optionalNowMemo.get().getMiscellaneousExpenses();
+     presum=optionalLastMemo.get().getSum();
+    }else{
+
+    }
 
 
     String groceries_str=String.valueOf(groceries);
@@ -91,8 +114,8 @@ public class SendMessageFactory implements ISendMessageFactory{
     return prompt;
   }
 
-  public AIAssistantMessage createSendAssistantMessage(){
-    String prompt=ParsePrompt();
+  public AIAssistantMessage createSendAssistantMessage(HttpSession session){
+    String prompt=ParsePrompt(session);
     AIAssistantMessage aiAssistantMessage= new AIAssistantMessage(prompt);
 
     return aiAssistantMessage;

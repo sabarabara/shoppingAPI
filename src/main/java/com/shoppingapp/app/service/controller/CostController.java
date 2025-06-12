@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
 import com.shoppingapp.app.service.usecase.interacter.CostUsecase;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @RestController
 @RequestMapping("/Cost")
@@ -19,18 +21,18 @@ public class CostController{
   }
 
   @PostMapping("/post")
-  public String postShoppingMemo(@RequestBody ShoppingMemoDTO shoppingMemodto){
-    return costUsecase.sendCostData(shoppingMemodto);
+  public String postShoppingMemo(HttpSession session,@RequestBody ShoppingMemoDTO shoppingMemodto){
+    return costUsecase.sendCostData(session,shoppingMemodto);
   }
 
   @GetMapping("get-all")
-  public List<ShoppingMemoDTO> getShoppingMemoMonths(){
-    return costUsecase.recieveCostDataofMonths();
+  public List<ShoppingMemoDTO> getShoppingMemoMonths(HttpSession session){
+    return costUsecase.recieveCostDataofMonths(session);
   }
 
   @GetMapping("get-one")
-  public ShoppingMemoDTO getShoppingMemoofMonth(){
-    return costUsecase.receiveCostDataofMonth();
+  public ShoppingMemoDTO getShoppingMemoofMonth(HttpSession session){
+    return costUsecase.receiveCostDataofMonth(session);
   }
   
 }

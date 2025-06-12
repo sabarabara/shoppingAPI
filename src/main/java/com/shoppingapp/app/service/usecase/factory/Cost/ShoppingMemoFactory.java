@@ -11,6 +11,8 @@ import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
 import com.shoppingapp.app.service.core.entity.ShoppingMemoEntiry;
 import com.shoppingapp.app.service.framework.DBserver.IdGeneratorImpl;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class ShoppingMemoFactory implements IShoppingMemoFactory{
 
@@ -23,7 +25,7 @@ public class ShoppingMemoFactory implements IShoppingMemoFactory{
   }
 
   // dto->voにおけるバリデーション
-  public ShoppingMemoEntiry createShoppingMemoEntiry(ShoppingMemoDTO shoppingmemodto){
+  public ShoppingMemoEntiry createShoppingMemoEntiry(HttpSession session,String shoppingMemoId,ShoppingMemoDTO shoppingmemodto){
 
     final int groceries=shoppingmemodto.getGroceries();
     final int clothingCosts=shoppingmemodto.getClothingcosts();
@@ -44,12 +46,10 @@ public class ShoppingMemoFactory implements IShoppingMemoFactory{
     final int sum =sumcal.getSum();
 
     //session 作成！
-    final UserSession userSession=sessionUsecase.crateUserSession();
+    final UserSession userSession=sessionUsecase.crateUserSession(session);
     final String userId=userSession.getUserId();
+    
 
-    //採番処理呼び出し
-    //String shoppingMemoId=idGeneratorImpl.generate("shoppingMemo");
-    String shoppingMemoId="fjkdlsadfa";
 
     //validation後の
     final int validatedGroceries=shoppingMemo.getGroceries().getAmount();

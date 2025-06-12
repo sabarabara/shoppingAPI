@@ -19,7 +19,7 @@ public class IdGeneratorImpl implements IdGenerator {
 
     
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public String generate(String sequenceName) {
         String seq = "seq_" + sequenceName;
 

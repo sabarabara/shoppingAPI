@@ -7,5 +7,5 @@ import com.shoppingapp.app.service.core.entity.UserCostLimEntity;
 
 public interface IUserCostLimRepository extends JpaRepository<UserCostLimEntity,Integer>{
 
-  Optional<UserCostLimEntity> findByuserId(String userId);
+  Optional<UserCostLimEntity> findByUserId(String userId);
 }

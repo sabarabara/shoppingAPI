@@ -7,6 +7,8 @@ import com.shoppingapp.app.service.core.domain.model.vo.AIAssistant.AIAssistantM
 import com.shoppingapp.app.service.core.domain.service.interacter.IAIassistant;
 import com.shoppingapp.app.service.core.dto.AIassistantDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class AIAssistantUsecase{
 
@@ -18,9 +20,9 @@ public class AIAssistantUsecase{
     this.sendMessageFactory=sendMessageFactory;
   }
 
-  public AIassistantDTO returnAIassistantMessage(){
+  public AIassistantDTO returnAIassistantMessage(HttpSession session){
 
-  AIAssistantMessage aiAssistantMessage=sendMessageFactory.createSendAssistantMessage();
+  AIAssistantMessage aiAssistantMessage=sendMessageFactory.createSendAssistantMessage(session);
   AIassistantDTO returnDto=aIassistant.assistYourShopping(aiAssistantMessage);
 
   return returnDto;
