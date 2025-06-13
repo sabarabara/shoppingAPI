@@ -3,7 +3,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.shoppingapp.app.service.core.dto.CostLimDTO;
 import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
+import com.shoppingapp.app.service.usecase.interacter.CostLimUsecase;
 import com.shoppingapp.app.service.usecase.interacter.CostUsecase;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,9 +17,11 @@ import jakarta.servlet.http.HttpSession;
 public class CostController{
 
   private final CostUsecase costUsecase;
+  private final CostLimUsecase costLimUsecase;
 
-  public CostController(CostUsecase costUsecase){
+  public CostController(CostUsecase costUsecase,CostLimUsecase costLimUsecase){
     this.costUsecase=costUsecase;
+    this.costLimUsecase=costLimUsecase;
   }
 
   @PostMapping("/post")
@@ -34,5 +38,14 @@ public class CostController{
   public ShoppingMemoDTO getShoppingMemoofMonth(HttpSession session){
     return costUsecase.receiveCostDataofMonth(session);
   }
-  
+
+  @PostMapping("post-costlim")
+  public CostLimDTO postCostLim(HttpSession session,@RequestBody CostLimDTO costLimDTO){
+    return costLimUsecase.postCostLim(session, costLimDTO);
+  }
+
+  @GetMapping("get-costlim")
+  public CostLimDTO getCostlim(HttpSession session){
+    return costLimUsecase.getCostLim(session);
+  }
 }

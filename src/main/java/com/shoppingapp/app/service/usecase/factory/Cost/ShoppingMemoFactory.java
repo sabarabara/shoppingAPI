@@ -10,6 +10,7 @@ import com.shoppingapp.app.service.core.domain.model.vo.Cost.Sumcal;
 import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
 import com.shoppingapp.app.service.core.entity.ShoppingMemoEntiry;
 import com.shoppingapp.app.service.framework.DBserver.IdGeneratorImpl;
+import com.shoppingapp.utils.IO.JOut;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -48,6 +49,9 @@ public class ShoppingMemoFactory implements IShoppingMemoFactory{
     //session 作成！
     final UserSession userSession=sessionUsecase.crateUserSession(session);
     final String userId=userSession.getUserId();
+
+    JOut jout =new JOut();
+    jout.p("🐞").p(userId).e();
     
 
 
