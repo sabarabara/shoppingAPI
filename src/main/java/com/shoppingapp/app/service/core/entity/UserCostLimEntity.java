@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 public class UserCostLimEntity{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column()
   private String userCostLimId;
 

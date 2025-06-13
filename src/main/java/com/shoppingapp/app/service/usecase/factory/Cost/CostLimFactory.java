@@ -2,6 +2,8 @@ package com.shoppingapp.app.service.usecase.factory.Cost;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
 import com.shoppingapp.app.auth.usecase.SessionUsecase;
 import com.shoppingapp.app.service.core.domain.model.vo.Cost.CostLim;
@@ -12,6 +14,8 @@ import com.shoppingapp.app.service.framework.DBserver.IdGeneratorImpl;
 
 import jakarta.servlet.http.HttpSession;
 
+
+@Service
 public class CostLimFactory{
 
   private final IUserCostLimRepository userCostLimRepository;
@@ -24,9 +28,8 @@ public class CostLimFactory{
     this.sessionUsecase=sessionUsecase;
     this.idGeneratorImpl=idGeneratorImpl;
   }
-  public
   
-  UserCostLimEntity createCostLim(HttpSession session,CostLimDTO costLimDTO){
+  public UserCostLimEntity createCostLim(HttpSession session,CostLimDTO costLimDTO){
 
     UserSession userSession = sessionUsecase.crateUserSession(session);
     String userId = userSession.getUserId();
