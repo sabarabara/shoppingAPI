@@ -29,7 +29,8 @@ public class SessionUsecase {
     String userId = sessionStore.getUserId(session);
     String username = sessionStore.getUsername(session);
     String password = sessionStore.getPassword(session);
+    String email = sessionStore.getEmail(session);
 
-    return userSessionFactory.createUserSession(userId, username, password);
+    return userSessionFactory.createUserSession(userId, username, password,email);
   }
 }

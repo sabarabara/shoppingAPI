@@ -35,7 +35,10 @@ public class SendMessageFactory implements ISendMessageFactory{
             + "- Miscellaneous: Last month = " + prmi + ", This month = " + mi + "\n"
             + "- Total: Last month = " + prsum + ", This month = " + sum + "\n\n"
             + "Please explain the possible reasons for any increases or decreases, "
-            + "highlight significant changes, and suggest any recommendations.\n\n";
+            + "highlight significant changes, and suggest any recommendations.\n\n"
+            +"日本語で回答してください"
+            +"文は100語程度でおねがいします。"
+            +"文章のみを生成してください";
 
             return prompt;
   }

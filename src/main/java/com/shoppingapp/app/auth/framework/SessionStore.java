@@ -25,4 +25,8 @@ public class SessionStore implements ISessionStore{
   public String getPassword(HttpSession session){
     return (String) session.getAttribute("password");
   }
+
+  public String getEmail(HttpSession session){
+    return (String) session.getAttribute("email");
+  }
 }

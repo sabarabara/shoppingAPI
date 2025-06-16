@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.shoppingapp.app.auth.core.domain.model.vo.UserSession;
 import com.shoppingapp.app.auth.usecase.SessionUsecase;
 import com.shoppingapp.app.service.core.domain.model.factory.Cost.IShoppingMemoFactory;
+import com.shoppingapp.app.service.core.domain.service.interacter.IMailServer;
 import com.shoppingapp.app.service.core.domain.service.interacter.IDBRepository.IShoppingMemoRepository;
 import com.shoppingapp.app.service.core.domain.service.interacter.IDBRepository.IUserCostLimRepository;
 import com.shoppingapp.app.service.core.dto.ShoppingMemoDTO;
@@ -22,17 +23,17 @@ public class CostUsecase{
 
   private final IShoppingMemoRepository shoppingMemoRepository;
   private final IUserCostLimRepository userCostLimRepository;
-  //private final IMailServer mailServer;
+  private final IMailServer mailServer;
   private final SessionUsecase sessionUsecase;
   private final DateFactory dateFactory;
   private final IShoppingMemoFactory shoppingMemoFactory;
   private final IdGeneratorImpl idGeneratorImpl;
 
-  public CostUsecase(IShoppingMemoRepository shoppingMemoRepository,IUserCostLimRepository userCostLimRepository,/*IMailServer mailServer,*/ SessionUsecase sessionUsecase,DateFactory dateFactory, IShoppingMemoFactory shoppingMemoFactory,IdGeneratorImpl idGeneratorImpl){
+  public CostUsecase(IShoppingMemoRepository shoppingMemoRepository,IUserCostLimRepository userCostLimRepository,IMailServer mailServer, SessionUsecase sessionUsecase,DateFactory dateFactory, IShoppingMemoFactory shoppingMemoFactory,IdGeneratorImpl idGeneratorImpl){
 
     this.shoppingMemoRepository=shoppingMemoRepository;
     this.userCostLimRepository=userCostLimRepository;
-    //this.mailServer=mailServer;
+    this.mailServer=mailServer;
     this.sessionUsecase=sessionUsecase;
     this.dateFactory=dateFactory;
     this.shoppingMemoFactory=shoppingMemoFactory;
@@ -89,13 +90,13 @@ public class CostUsecase{
 
 
     //もし合計値が設定値を超えていたらSMS or メールを送る
-    //Optional<UserCostLimEntity> optinalUserCostLim=userCostLimRepository.findByuserId(userId);
-    //int yourCostLim=optinalUserCostLim.get().getCostLim();
-    //int nowSum=sendingShoppingMemoEntiry.getSum();
+    Optional<UserCostLimEntity> optinalUserCostLim=userCostLimRepository.findByUserId(userId);
+    int yourCostLim=optinalUserCostLim.get().getCostLim();
+    int nowSum=sendingShoppingMemoEntiry.getSum();
 
-    /*if(yourCostLim<nowSum){
-      String resMailServer=mailServer.sendCostLim();
-    }*/
+    if(yourCostLim<nowSum){
+      String resMailServer=mailServer.sendCostLim(session);
+    }
 
     //データを送るよ
     ShoppingMemoEntiry resShoppingMemoRepository=shoppingMemoRepository.save(sendingShoppingMemoEntiry);
