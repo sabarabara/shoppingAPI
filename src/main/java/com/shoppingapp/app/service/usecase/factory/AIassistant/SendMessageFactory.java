@@ -53,6 +53,8 @@ public class SendMessageFactory implements ISendMessageFactory{
     final int year=dateFactory.getYear();
     final int month=dateFactory.getMonth();
 
+
+
     int lastyear=year;
     int lastmonth=month;
 
@@ -66,6 +68,7 @@ public class SendMessageFactory implements ISendMessageFactory{
 
     Optional <ShoppingMemoEntiry> optionalNowMemo=shoppingMemoRepository.findByUserIdAndMonthAndYear(userId, month, year);
     Optional <ShoppingMemoEntiry> optionalLastMemo=shoppingMemoRepository.findByUserIdAndMonthAndYear(userId, lastmonth, lastyear);
+
 
     int initializevalue=0;
 
